@@ -1,6 +1,7 @@
 'use strict';
 
 var spawn = require('child_process').spawn,
+    fs = require('fs'),
     utils = require('./utils');
 
 var starter = {
@@ -44,6 +45,9 @@ var starter = {
         if (!child.pid) {
             throw new Error('Unable to start DynamoDB Local process!');
         }
+
+	fs.writeFile('dynamodb.local.pid', child.pid);
+	
 
         child.on('error', function (code) {
             throw new Error(code);
